@@ -15,12 +15,13 @@ Aether-Link bridges the gap between state-of-the-art generative intelligence and
 
 ### Key Capabilities
 
-- **Interactive Terminal Assistant**: Clean terminal interface with status spinners, custom panels, and live ANSI styling.
+- **Real-Time Token Streaming**: Streams responses live token-by-token with formatted Markdown rendering for an instantaneous feedback experience.
 - **Dynamic Persona Switcher**: Seamlessly switch between personas (`/coder`, `/writer`, `/researcher`) mid-conversation while retaining memory context.
-- **Multi-Turn Conversational Memory**: Utilizes native Gemini Chat sessions to maintain context across consecutive inquiries.
-- **Rich Markdown Rendering**: Automatically renders responses with code syntax highlighting, markdown tables, lists, and formatted text directly in the shell.
-- **Secure Authentication by Design**: Decouples sensitive API tokens from source control by reading keys dynamically from environment variables or a local `.env` file.
-- **Configurable Backend**: Defaults to high-efficiency models (`gemini-2.5-flash`) with dynamic override support via environment variables.
+- **File & Code Context Injection**: Directly inject local file contents into your inquiries using `/file <path>` or inline `@filename` mentions.
+- **Session Export**: Save full multi-turn conversation logs and metadata into formatted Markdown files via `/save [filename]`.
+- **Live Latency & Token Metrics**: Real-time response time and token count tracking displayed under each response.
+- **Multi-Turn Conversational Memory**: Native Gemini Chat sessions keep full conversational context across consecutive queries.
+- **Secure Authentication by Design**: Decouples sensitive API tokens from source control via environment variables or a local `.env` file.
 
 ---
 
@@ -125,17 +126,18 @@ Query: quit
 Shutting down Aether-Link... Goodbye.
 ```
 
-### Supported Commands & Persona Switcher
-
-Switch assistant personas on the fly without losing conversation context:
-
-| Command | Persona | Role & System Instruction |
+### Supported Commands & Features
+ 
+| Command | Action | Description |
 | :--- | :--- | :--- |
-| `/coder` | 💻 **Expert Python Programmer** | `"You are an expert Python programmer."` |
-| `/writer` | ✍️ **Creative Novelist** | `"You are a creative novelist."` |
-| `/researcher`, `/default` | 🔬 **Research Assistant** | `"You are Aether-Link, a high-level research assistant. Provide expert technical advice."` |
-| `/personas`, `/help` | 📋 **Help Menu** | Displays formatted table of all available personas and active status |
-| `/clear` | 🧹 **Memory Reset** | Resets conversation history while keeping the active persona |
+| `/coder` | 💻 **Expert Python Programmer** | Switch persona to `"You are an expert Python programmer."` |
+| `/writer` | ✍️ **Creative Novelist** | Switch persona to `"You are a creative novelist."` |
+| `/researcher`, `/default` | 🔬 **Research Assistant** | Switch back to `"You are Aether-Link, a high-level research assistant."` |
+| `/file <path> [prompt]` | 📂 **File Context** | Injects local file content into the prompt context |
+| `@<filepath>` | 🏷️ **Inline File Mention** | Automatically loads `@filename` mentioned anywhere in your prompt |
+| `/save [filename]` | 💾 **Export Session** | Exports the current chat transcript to Markdown in `saved_sessions/` |
+| `/personas`, `/help` | 📋 **Help Menu** | Displays formatted table of all personas and commands |
+| `/clear` | 🧹 **Memory Reset** | Resets conversation memory and starts a fresh session |
 | `exit`, `quit`, `/exit` | 🚪 **Shutdown** | Cleanly terminates the Aether-Link session |
 
 ---

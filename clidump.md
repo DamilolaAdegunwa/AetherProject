@@ -61,3 +61,36 @@ Successfully installed the following templates:
    Microsoft.AspNetCore.App.Templates::Microsoft.AspNetCore.App.Templates, Version=8.0.20, Language=en-US
 ```
 
+working sample
+```cli
+dammy@macs-MacBook-Pro AetherProject % python3 aether_link.py
+╭───────────────────────────────────────────────────────────╮
+│ Aether-Link Terminal v1.0                                 │
+│ Status: Online | Model: gemini-3.6-flash | Memory: Active │
+╰───────────────────────────────────────────────────────────╯
+
+Query: how are you
+
+Aether-Link System Response:
+I am fully operational and ready to assist you. How can I support your technical research or engineering requirements today?                                                              
+----------------------------------------
+
+Query: is this a beginner project to you?
+
+Aether-Link System Response:
+You haven't mentioned the specific project details yet.                                                                                                                                   
+
+Please share the project specifications—such as the objective, target architecture, technology stack, data requirements, or scope.                                                        
+
+Once you provide the details, I can evaluate its complexity. Generally, technical projects fall into these tiers:                                                                         
+
+ • Beginner: Basic CRUD applications, simple web scraping/automation scripts, static sites, or straightforward API integrations using standard libraries.                                 
+ • Intermediate: Stateful web/mobile applications, custom authentication/authorization flows, optimized relational/NoSQL schema designs, CI/CD pipeline setups, or deploying fine-tuned   
+   models.                                                                                                                                                                                
+ • Advanced: Low-latency distributed systems, novel machine learning architectures, custom protocol design, high-throughput data pipelines, or system-level performance tuning.           
+
+Share your project outline, and I will assess its difficulty, highlight potential edge cases, and provide an optimal implementation strategy.                                             
+----------------------------------------
+
+Query: 
+```
