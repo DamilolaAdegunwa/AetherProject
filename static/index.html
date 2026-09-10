@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether-Link — AI Research Assistant</title>
+  <!-- Google Fonts & CDN Libraries for Markdown & Syntax Highlighting -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">⚡</span>
+          <div>
+            <h1>Aether-Link</h1>
+            <span class="subtitle">AI Research & Dev Assistant</span>
+          </div>
+        </div>
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text">Online</span>
+        </div>
+      </div>
+
+      <!-- Persona Switcher -->
+      <div class="sidebar-section">
+        <label class="section-label">ASSISTANT PERSONA</label>
+        <div class="persona-list" id="personaList">
+          <button class="persona-btn active" data-persona="researcher">
+            <span class="p-icon">🔬</span>
+            <div class="p-info">
+              <span class="p-name">Research Assistant</span>
+              <span class="p-desc">High-level technical advisor</span>
+            </div>
+          </button>
+          <button class="persona-btn" data-persona="coder">
+            <span class="p-icon">💻</span>
+            <div class="p-info">
+              <span class="p-name">Python Programmer</span>
+              <span class="p-desc">Clean, idiomatic architecture</span>
+            </div>
+          </button>
+          <button class="persona-btn" data-persona="writer">
+            <span class="p-icon">✍️</span>
+            <div class="p-info">
+              <span class="p-name">Creative Novelist</span>
+              <span class="p-desc">Vivid narratives & prose</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Context File Manager -->
+      <div class="sidebar-section">
+        <label class="section-label">FILE CONTEXT INJECTION</label>
+        <div class="file-drop-area" id="fileDropArea">
+          <input type="file" id="fileInput" multiple style="display: none;">
+          <span class="drop-icon">📂</span>
+          <span class="drop-text">Click to attach or drag files here</span>
+        </div>
+        <div class="attached-files-list" id="attachedFilesList"></div>
+      </div>
+
+      <!-- Session Actions -->
+      <div class="sidebar-section actions-section">
+        <label class="section-label">SESSION ACTIONS</label>
+        <button class="action-btn" id="exportBtn">
+          <span>💾</span> Export Session (.md)
+        </button>
+        <button class="action-btn" id="clearBtn">
+          <span>🧹</span> Clear Conversation
+        </button>
+      </div>
+
+      <!-- Model Selector Footer -->
+      <div class="sidebar-footer">
+        <label class="section-label">GEMINI MODEL</label>
+        <select id="modelSelector" class="model-select">
+          <option value="gemini-3.6-flash" selected>gemini-3.6-flash (Active)</option>
+          <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+          <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+          <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-main">
+      <!-- Top Chat Header -->
+      <header class="chat-header">
+        <div class="header-left">
+          <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">☰</button>
+          <div class="active-persona-badge">
+            <span id="activePersonaIcon">🔬</span>
+            <span id="activePersonaName">Research Assistant</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="latency-badge" id="headerMetric">⏱️ Ready</span>
+        </div>
+      </header>
+
+      <!-- Scrollable Message Stream -->
+      <div class="messages-viewport" id="messagesViewport">
+        <!-- Hero Welcome Card -->
+        <div class="welcome-card" id="welcomeCard">
+          <div class="welcome-badge">⚡ Aether-Link Web v1.0</div>
+          <h2>How can I assist your research today?</h2>
+          <p>Ask complex technical questions, review code, draft narratives, or inject local file contexts seamlessly.</p>
+          <div class="suggestion-chips">
+            <button class="chip" data-query="Explain how OAuth 2.0 PKCE protects public clients">🔒 Explain OAuth PKCE</button>
+            <button class="chip" data-query="Review the architecture of this project and suggest improvements">🏗️ Review Architecture</button>
+            <button class="chip" data-query="/coder write an async rate-limiter with token-bucket in Python">💻 Async Rate Limiter</button>
+            <button class="chip" data-query="/writer write a short sci-fi scene about an AI sentient core">✍️ Sci-Fi Scene</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Query Input Bar -->
+      <div class="input-container">
+        <!-- Attached Files Pill Preview in Input -->
+        <div class="input-pills" id="inputPills"></div>
+
+        <div class="input-card">
+          <button class="attach-btn" id="attachBtn" title="Attach file for context">📎</button>
+          <textarea
+            id="queryInput"
+            placeholder="Type your message, /coder, /writer, /file, or @filename..."
+            rows="1"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" title="Send Query">
+            <span id="sendBtnIcon">➤</span>
+          </button>
+        </div>
+        <div class="input-footer">
+          <span>Press <strong>Enter</strong> to send, <strong>Shift + Enter</strong> for newline</span>
+          <span class="shortcut-tip">Slash commands & <code>@filename</code> tags supported</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
