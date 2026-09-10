@@ -16,6 +16,7 @@ Aether-Link bridges the gap between state-of-the-art generative intelligence and
 ### Key Capabilities
 
 - **Interactive Terminal Assistant**: Clean terminal interface with status spinners, custom panels, and live ANSI styling.
+- **Dynamic Persona Switcher**: Seamlessly switch between personas (`/coder`, `/writer`, `/researcher`) mid-conversation while retaining memory context.
 - **Multi-Turn Conversational Memory**: Utilizes native Gemini Chat sessions to maintain context across consecutive inquiries.
 - **Rich Markdown Rendering**: Automatically renders responses with code syntax highlighting, markdown tables, lists, and formatted text directly in the shell.
 - **Secure Authentication by Design**: Decouples sensitive API tokens from source control by reading keys dynamically from environment variables or a local `.env` file.
@@ -124,10 +125,18 @@ Query: quit
 Shutting down Aether-Link... Goodbye.
 ```
 
-### Supported Commands
+### Supported Commands & Persona Switcher
 
-- `exit`, `quit`, or `bye`: Cleanly terminate the Aether-Link session.
-- `Ctrl + C` or `Ctrl + D`: Graceful interrupt shutdown.
+Switch assistant personas on the fly without losing conversation context:
+
+| Command | Persona | Role & System Instruction |
+| :--- | :--- | :--- |
+| `/coder` | 💻 **Expert Python Programmer** | `"You are an expert Python programmer."` |
+| `/writer` | ✍️ **Creative Novelist** | `"You are a creative novelist."` |
+| `/researcher`, `/default` | 🔬 **Research Assistant** | `"You are Aether-Link, a high-level research assistant. Provide expert technical advice."` |
+| `/personas`, `/help` | 📋 **Help Menu** | Displays formatted table of all available personas and active status |
+| `/clear` | 🧹 **Memory Reset** | Resets conversation history while keeping the active persona |
+| `exit`, `quit`, `/exit` | 🚪 **Shutdown** | Cleanly terminates the Aether-Link session |
 
 ---
 
