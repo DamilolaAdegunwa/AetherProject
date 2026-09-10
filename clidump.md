@@ -66,7 +66,7 @@ working sample
 dammy@macs-MacBook-Pro AetherProject % python3 aether_link.py
 ╭───────────────────────────────────────────────────────────╮
 │ Aether-Link Terminal v1.0                                 │
-│ Status: Online | Model: gemini-3.6-flash | Memory: Active │
+│ Status: Online | Model: gemini-3.7-flash | Memory: Active │
 ╰───────────────────────────────────────────────────────────╯
 
 Query: how are you
